@@ -5,7 +5,7 @@ import * as DOM from "./dom"
 export class DOMView extends View {
 
   readonly tagName: string = "div"
-  readonly className: string = ""
+  readonly className: string | null = null
 
   protected _has_finished: boolean
 
