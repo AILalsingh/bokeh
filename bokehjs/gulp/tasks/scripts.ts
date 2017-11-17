@@ -69,8 +69,9 @@ gulp.task("scripts:ts", () => {
 })
 
 const tsconfig = require(join(paths.src_dir.coffee, "tsconfig.json"))
+const tsjs_deps = (argv.fast ? [] : ["scripts:coffee"]).concat(["scripts:js", "scripts:ts"])
 
-gulp.task("scripts:tsjs", ["scripts:coffee", "scripts:js", "scripts:ts"], () => {
+gulp.task("scripts:tsjs", tsjs_deps, () => {
   function error(err: {message: string}) {
     const raw = stripAnsi(err.message)
     const result = raw.match(/(.*)(\(\d+,\d+\): error TS(\d+):.*)/)
