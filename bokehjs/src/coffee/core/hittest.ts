@@ -38,21 +38,13 @@ export interface Indices2d {
   indices: {[key: string]: number[]} // XXX: [key: number]?
 }
 
-export type X = "0d" | "1d" | "2d"
-
-export type LegacyHitTestResult = {
-  [K in X]: Indices0d | Indices1d | Indices2d
-}
-
 export class HitTestResult {
 
-  readonly _0d: Indices0d
-  readonly _1d: Indices1d
-  readonly _2d: Indices2d
+  [key: string]: any
 
   constructor() {
     // 0d is only valid for line and patch glyphs
-    this._0d = {
+    this['0d'] = {
       // the glyph that was picked
       glyph: null,
       get_view: nullreturner,  // this is a function, because setting the view causes inf. recursion
@@ -60,21 +52,23 @@ export class HitTestResult {
       indices: [],
     };
     // 1d for all other glyphs apart from multilines and multi patches
-    this._1d = {
+    this['1d'] = {
       // index of the closest point to the crossed segment
       // useful for special glyphs like line that are continuous and
       // not discrete between 2 data points
       indices: []
     }
     // 2d for all for multilines and multi patches
-    this._2d = {
+    this['2d'] = {
       // mapping of indices of the multiglyph to array of glyph indices that were hit
       // e.g. {3: [5, 6], 4: [5]}
       indices: {}
     }
   }
 
-  //[key: string]: Indices0d | Indices1d | Indices2d
+  get _0d(): Indices0d { return this['0d'] }
+  get _1d(): Indices1d { return this['1d'] }
+  get _2d(): Indices2d { return this['2d'] }
 
   is_empty(): boolean {
     return this._0d.indices.length == 0 && this._1d.indices.length == 0 && isEmpty(this._2d.indices)
