@@ -7,7 +7,17 @@ export function delay(func: () => void, wait: number): number {
   return setTimeout(func, wait)
 }
 
-const _defer = typeof requestAnimationFrame === "function" ? requestAnimationFrame : setImmediate
+
+declare function mozRequestAnimationFrame(callback: FrameRequestCallback): number
+declare function webkitRequestAnimationFrame(callback: FrameRequestCallback): number
+declare function msRequestAnimationFrame(callback: FrameRequestCallback): number
+declare function oRequestAnimationFrame(callback: FrameRequestCallback): number
+
+const _defer = typeof requestAnimationFrame       === "function" ? requestAnimationFrame       :
+               typeof mozRequestAnimationFrame    === "function" ? mozRequestAnimationFrame    :
+               typeof webkitRequestAnimationFrame === "function" ? webkitRequestAnimationFrame :
+               typeof msRequestAnimationFrame     === "function" ? msRequestAnimationFrame     :
+               typeof oRequestAnimationFrame      === "function" ? oRequestAnimationFrame      : setImmediate
 
 export function defer(func: () => void): number {
   return _defer(func)
