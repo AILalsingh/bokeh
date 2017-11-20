@@ -4,8 +4,8 @@ import * as DOM from "./dom"
 
 export class DOMView extends View {
 
-  readonly tagName: string = "div"
-  readonly className: string | null = null
+  tagName: string
+  className: string | null
 
   protected _has_finished: boolean
 
@@ -57,3 +57,6 @@ export class DOMView extends View {
     return DOM.createElement(this.tagName, {id: this.id, class: this.className})
   }
 }
+
+DOMView.prototype.tagName = "div"
+DOMView.prototype.className = null
