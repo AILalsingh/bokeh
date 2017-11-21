@@ -23,6 +23,7 @@ from .deprecation import deprecated
 
 _plugin_umd = \
 """\
+"use strict";
 (function(root, factory) {
 //  if(typeof exports === 'object' && typeof module === 'object')
 //    factory(require("Bokeh"));

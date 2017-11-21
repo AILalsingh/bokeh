@@ -1,4 +1,5 @@
 export const prelude = `\
+"use strict";
 (function(root, factory) {
 //  if(typeof exports === 'object' && typeof module === 'object')
 //    module.exports = factory();
@@ -56,6 +57,7 @@ export const prelude = `\
 `
 
 export const plugin_prelude = `\
+"use strict";
 (function(root, factory) {
 //  if(typeof exports === 'object' && typeof module === 'object')
 //    factory(require("Bokeh"));
